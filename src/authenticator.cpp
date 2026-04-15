@@ -1,4 +1,4 @@
-﻿#include "authenticator.h"
+#include "../include/authenticator.h"
 Authenticator::Authenticator(Server* server)
 	:server(server), fromUser(server->getFromUser()), toUser(server->getToUser()) {
 	failCount = 0;
@@ -39,16 +39,13 @@ void Authenticator::startProcess(){
 
 void Authenticator::identification(std::string* corPassword){
 	char* errmsg = 0;
-	char sql[100];
-
-
 	std::string login;
 	toUser << "login: ";
 	fromUser >> login;
 	fromUser.ignore(100, '\n');
-	sprintf_s(sql, "SELECT password FROM Users WHERE login='%s';", login.c_str());
+	std::string sql = "SELECT password FROM Users WHERE login='"+login+"';";
 	server->dbRequest(
-		sql, 
+		sql.c_str(), 
 		[](void* vres, int n, char** val, char** head) {
 			std::string* res = (std::string*)vres;
 			(*res) = val[0];

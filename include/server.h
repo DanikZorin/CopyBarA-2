@@ -1,7 +1,7 @@
-﻿#ifndef SERVER
+#ifndef SERVER
 #define SERVER
 #include <iostream>
-#include <winsqlite/winsqlite3.h>
+#include <sqlite3.h>
 #include <vector>
 #include <string>
 #include <iomanip>

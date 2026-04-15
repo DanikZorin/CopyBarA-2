@@ -1,5 +1,5 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#include "server.h"
+#define _CRT_SECURE_NO_WARNINGS
+#include "../include/server.h"
 void stringToWords(const std::string& string, std::vector<std::string>& words) {
 	int pos1 = 0;
 	while ((pos1 = string.find_first_not_of(" ", pos1)) != -1) {
@@ -168,7 +168,7 @@ void Server::unknownCommand() {
 
 }
 void Server::task1() {
-	toUser << u8"Введите номер автомастерской:\n";
+	toUser << "Введите номер автомастерской:\n";
 	int workshopNum;
 	fromUser >> workshopNum;
 	fromUser.ignore();
@@ -177,14 +177,14 @@ void Server::task1() {
 	Date dateEnd;
 	
 	try {
-		toUser << u8"Введите дату начала (образ. 2020-01-24):\n";
+		toUser << "Введите дату начала (образ. 2020-01-24):\n";
 		fromUser >> dateStart;
 
-		toUser << u8"Введите дату окончания (образ. 2020-01-24):\n";
+		toUser << "Введите дату окончания (образ. 2020-01-24):\n";
 		fromUser >> dateEnd;
 	}
 	catch (int) {
-		toUser << u8"Invalid syntax!\naborting...\n";
+		toUser << "Invalid syntax!\naborting...\n";
 		return;
 	}
 
@@ -211,10 +211,10 @@ void Server::task1() {
 	sqlite3_bind_text(stmt, 3, dateEnd.toString().c_str(), -1, SQLITE_TRANSIENT);
 
 	toUser
-		<< u8"Мастер" << sep
-		<< u8"Услуга" << sep 
-		<< u8"Начало" << sep
-		<< u8"Конец" << sep
+		<< "Мастер" << sep
+		<< "Услуга" << sep 
+		<< "Начало" << sep
+		<< "Конец" << sep
 		<< '\n';
 
 
@@ -230,7 +230,7 @@ void Server::task1() {
 	sqlite3_finalize(stmt);
 }
 void Server::task2(){
-	toUser << u8"Введите имя (фамилию/отчество) мастера:\n";
+	toUser << "Введите имя (фамилию/отчество) мастера:\n";
 	std::string masterName;
 	fromUser >> masterName;
 	masterName = "%" + masterName + "%";
@@ -255,9 +255,9 @@ void Server::task2(){
 	sqlite3_bind_text(stmt, 1, masterName.c_str(), -1, SQLITE_TRANSIENT);
 	
 	toUser
-		<< u8"Мастер" << sep
-		<< u8"Услуга" << sep
-		<< u8"Номер машины" << sep
+		<< "Мастер" << sep
+		<< "Услуга" << sep
+		<< "Номер машины" << sep
 		<<'\n';
 
 	while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -292,12 +292,12 @@ void Server::task3(){
 	}
 
 	toUser
-		<< u8"Марка" << sep
-		<< u8"Мастерская" << sep
-		<< u8"Начало" << sep
-		<< u8"Конец" << sep
-		<< u8"Услуга" << sep
-		<< u8"Мастер" << sep
+		<< "Марка" << sep
+		<< "Мастерская" << sep
+		<< "Начало" << sep
+		<< "Конец" << sep
+		<< "Услуга" << sep
+		<< "Мастер" << sep
 		<< '\n';
 
 	while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -334,9 +334,9 @@ void Server::task4(){
 
 	int ws[] = {20,18,8};
 	toUser
-		<< u8"Номер мастерской" << sep
-		<< u8"Кол-во заказов" << sep
-		<< u8"Прибыль" << sep
+		<< "Номер мастерской" << sep
+		<< "Кол-во заказов" << sep
+		<< "Прибыль" << sep
 		<< '\n';
 	while (sqlite3_step(stmt) == SQLITE_ROW) {
 		for (int i = 0;i < sqlite3_column_count(stmt);i++) {
@@ -377,14 +377,14 @@ char sql[] =
 		return;
 	}
 	toUser
-		<< u8"Номер мастерской" << sep
-		<< u8"Услуга" << sep
-		<< u8"Стоимость" << sep
-		<< u8"Мастер" << sep
-		<< u8"Номер машины" << sep
-		<< u8"Марка" << sep
-		<< u8"Тех. пасспорт" << sep
-		<< u8"Выпуск" << sep
+		<< "Номер мастерской" << sep
+		<< "Услуга" << sep
+		<< "Стоимость" << sep
+		<< "Мастер" << sep
+		<< "Номер машины" << sep
+		<< "Марка" << sep
+		<< "Тех. пасспорт" << sep
+		<< "Выпуск" << sep
 		<< '\n';
 	while (sqlite3_step(stmt) == SQLITE_ROW) {
 		for (int i = 0;i < sqlite3_column_count(stmt);i++) {
@@ -419,7 +419,7 @@ void Server::masterStatUpdate(){
 
 void Server::problem5(){
 
-	toUser << u8"Введите номер автомастерской:\n";
+	toUser << "Введите номер автомастерской:\n";
 	int workshopNum;
 	fromUser >> workshopNum;
 	fromUser.ignore();
@@ -428,14 +428,14 @@ void Server::problem5(){
 	Date dateEnd;
 
 	try {
-		toUser << u8"Введите дату начала (образ. 2020-01-24):\n";
+		toUser << "Введите дату начала (образ. 2020-01-24):\n";
 		fromUser >> dateStart;
 
-		toUser << u8"Введите дату окончания (образ. 2020-01-24):\n";
+		toUser << "Введите дату окончания (образ. 2020-01-24):\n";
 		fromUser >> dateEnd;
 	}
 	catch (int) {
-		toUser << u8"Invalid syntax!\naborting...\n";
+		toUser << "Invalid syntax!\naborting...\n";
 		return;
 	}
 
@@ -478,7 +478,7 @@ void Server::problem5(){
 	dbSelect("SELECT * FROM Workshop_stat", callbackPrintout);
 }
 void Server::problem6() {
-	toUser << u8"Введите номер автомастерской:\n";
+	toUser << "Введите номер автомастерской:\n";
 	int workshopNum;
 	fromUser >> workshopNum;
 	fromUser.ignore();
@@ -487,11 +487,11 @@ void Server::problem6() {
 
 	try {
 		
-		toUser << u8"Введите дату окончания (образ. 2020-01-24):\n";
+		toUser << "Введите дату окончания (образ. 2020-01-24):\n";
 		fromUser >> dateEnd;
 	}
 	catch (int) {
-		toUser << u8"Invalid syntax!\naborting...\n";
+		toUser << "Invalid syntax!\naborting...\n";
 		return;
 	}
 
@@ -511,7 +511,7 @@ void Server::problem6() {
 	sqlite3_step(stmt);
 	const unsigned char* val_ = sqlite3_column_text(stmt, 0);
 	std::string val = val_ ? (const char*)val_ : "NULL";
-	toUser <<u8"Работ выполнено: " << val << '\n';
+	toUser <<"Работ выполнено: " << val << '\n';
 
 	sqlite3_finalize(stmt);
 

@@ -1,5 +1,5 @@
-﻿#include <iostream>
-#include "authenticator.h"
+#include <iostream>
+#include "../include/authenticator.h"
 using namespace std;
 
 int callback(void* smth, int argc, char** val, char** header) {
@@ -10,11 +10,11 @@ int callback(void* smth, int argc, char** val, char** header) {
 	return 0;
 }
 /// TODO: remove windows and test on macOS
-#include <windows.h>
+//#include <windows.h>
 int main(int argc, char** args){
 	
-	SetConsoleOutputCP(65001);
-	SetConsoleCP(65001);
+//	SetConsoleOutputCP(65001);
+//	SetConsoleCP(65001);
 
 	Server* server = new Server();
 	Authenticator* auth = new Authenticator(server);
