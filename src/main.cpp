@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/authenticator.h"
+#include "authenticator.h"
 using namespace std;
 
 int callback(void* smth, int argc, char** val, char** header) {

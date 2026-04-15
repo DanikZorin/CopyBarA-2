@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "../include/server.h"
+#include "server.h"
 void stringToWords(const std::string& string, std::vector<std::string>& words) {
 	int pos1 = 0;
 	while ((pos1 = string.find_first_not_of(" ", pos1)) != -1) {

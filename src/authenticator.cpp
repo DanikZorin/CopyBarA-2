@@ -1,4 +1,4 @@
-#include "../include/authenticator.h"
+#include "authenticator.h"
 Authenticator::Authenticator(Server* server)
 	:server(server), fromUser(server->getFromUser()), toUser(server->getToUser()) {
 	failCount = 0;

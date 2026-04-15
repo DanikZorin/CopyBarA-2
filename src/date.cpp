@@ -1,4 +1,4 @@
-#include "../include/date.h"
+#include "date.h"
 std::string Date::digits = "1234567890";
 void Date::convert(const std::string& sDate){
 	//####-##-##
