@@ -13,3 +13,8 @@ obj/server.o: src/server.cpp
 obj/authenticator.o: src/authenticator.cpp
 	g++ -std=c++17  -c src/authenticator.cpp -o obj/authenticator.o
 
+clean:
+	-rm -f obj/* bin/*
+
+run:
+	./bin/main
