@@ -4,6 +4,7 @@
 #include <winsqlite/winsqlite3.h>
 #include <vector>
 #include <string>
+#include <iomanip>
 #include "date.h"
 struct CallbackParam { 
 	int responseCount; 
@@ -12,10 +13,13 @@ struct CallbackParam {
 	CallbackParam(std::ostream& toUser) :toUser(toUser), responseCount(0) {};
 };
 
+int callbackGeneral(void* smth, int argc, char** val, char** header);
 int callbackPrintout(void* smth, int argc, char** val, char** header);
 int callbackList(void* smth, int argc, char** val, char** header);
+
 class Server{
 	const char* dbPath = "Workshops_system.db";
+	const char* sep = " | ";
 	sqlite3* db;
 
 	std::istream& fromUser;
@@ -27,11 +31,16 @@ class Server{
 	void showTable(const std::string& table);
 	void unknownCommand();
 
-	void task1();
+	void task1(); // Problem 2
 	void task2();
 	void task3();
 	void task4();
 	void task5();
+
+	void masterStatUpdate(); // Problem 4
+
+	void problem5(); // Problem 5
+	void problem6(); // Problem 5
 public:
 	Server(std::ostream& toUser=std::cout, std::istream& fromUser=std::cin);
 	
