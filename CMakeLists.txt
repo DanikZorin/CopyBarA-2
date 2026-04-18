@@ -1,30 +1,32 @@
-cmake_minimum_required(VERSION 3.14)
-project(MyLabProject)
+cmake_minimum_required(VERSION 3.15)
+project(lab4 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(SQLite3 REQUIRED)
 
 include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/refs/tags/v1.15.2.zip
+FetchContent_Declare(gtest
+    URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
-FetchContent_MakeAvailable(googletest)
+FetchContent_MakeAvailable(gtest)
 
-add_library(app_logic 
+add_library(src 
+    src/authenticator.cpp 
     src/date.cpp 
-    src/server.cpp 
-    src/authenticator.cpp
+    src/server.cpp
 )
-target_include_directories(app_logic PUBLIC include)
-target_link_libraries(app_logic PRIVATE SQLite3::SQLite3)
 
-add_executable(main_app src/main.cpp)
-target_link_libraries(main_app PRIVATE app_logic)
+target_include_directories(src PUBLIC include)
+target_link_libraries(src PRIVATE SQLite::SQLite3)
 
-add_executable(run_tests tests/test_main.cpp)
-target_link_libraries(run_tests PRIVATE app_logic GTest::gtest_main)
+add_executable(lab4 src/main.cpp)
+target_link_libraries(lab4 PRIVATE src)
+
+enable_testing()
+add_executable(lab4test tests/tests.cpp) 
+target_link_libraries(lab4test PRIVATE src GTest::gtest_main)
 
 include(GoogleTest)
-gtest_discover_tests(run_tests)
+gtest_discover_tests(lab4test)
