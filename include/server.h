@@ -6,6 +6,7 @@
 #include <string>
 #include <iomanip>
 #include "date.h"
+void stringToWords(const std::string& string, std::vector<std::string>& words);
 struct CallbackParam { 
 	int responseCount; 
 	std::ostream& toUser;
