@@ -1,5 +1,5 @@
 -- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
--- Last modification date: 2026-04-08 17:57:24.479
+-- Last modification date: 2026-04-10 07:40:49.535
 
 -- tables
 -- Table: Brands
@@ -37,7 +37,7 @@ CREATE TABLE Orders (
     start_date date NOT NULL,
     end_date date NOT NULL,
     repair_id integer NOT NULL,
-    discount decimal(4,2) NOT NULL,
+    final_cost decimal(10,2) NOT NULL,
     CONSTRAINT Masters_Orders FOREIGN KEY (master_id)
     REFERENCES Masters (id),
     CONSTRAINT Orders_Workshops FOREIGN KEY (workshop_id)
