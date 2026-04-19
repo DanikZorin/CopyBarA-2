@@ -8,7 +8,7 @@
 
 | Участник | Ссылка на учебный репозиторий |
 |----------|------------------------------|
-| Зорин Даниил | [!]() |
+| Зорин Даниил | [DanikZorin/skills-github-pages](https://github.com/DanikZorin/skills-github-pages) |
 | Петров Пётр | [https://github.com/Ampersant007/courseGP](https://github.com/Ampersant007/courseGP) |
 
 ## Что было изучено
