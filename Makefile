@@ -1,20 +1,30 @@
-bin/main: obj/main.o obj/date.o obj/server.o obj/authenticator.o
-	g++ obj/main.o obj/date.o obj/server.o obj/authenticator.o -o bin/main -lsqlite3
+CXX = g++
+CXXFLAGS = -std=c++17 -Iinclude
+LIBS = -lsqlite3
+TARGET = bin/main
 
-obj/main.o: src/main.cpp
-	g++ -c src/main.cpp -o obj/main.o
+$(shell mkdir -p obj bin)
 
-obj/date.o: src/date.cpp
-	g++ -c src/date.cpp -o obj/date.o
+SRC = src/main.cpp src/authenticator.cpp src/date.cpp src/server.cpp
+OBJ = obj/main.o obj/authenticator.o obj/date.o obj/server.o
 
-obj/server.o: src/server.cpp
-	g++ -c src/server.cpp -o obj/server.o -lsqlite3
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET) $(LIBS)
 
-obj/authenticator.o: src/authenticator.cpp
-	g++ -std=c++17  -c src/authenticator.cpp -o obj/authenticator.o
+obj/main.o: src/main.cpp include/authenticator.h
+	$(CXX) $(CXXFLAGS) -c src/main.cpp -o obj/main.o
+
+obj/authenticator.o: src/authenticator.cpp include/authenticator.h include/server.h
+	$(CXX) $(CXXFLAGS) -c src/authenticator.cpp -o obj/authenticator.o
+
+obj/date.o: src/date.cpp include/date.h
+	$(CXX) $(CXXFLAGS) -c src/date.cpp -o obj/date.o
+
+obj/server.o: src/server.cpp include/server.h include/date.h
+	$(CXX) $(CXXFLAGS) -c src/server.cpp -o obj/server.o
 
 clean:
-	-rm -f obj/* bin/*
+	rm -f obj/*.o bin/*
 
-run:
-	./bin/main
+run: $(TARGET)
+	./$(TARGET)
