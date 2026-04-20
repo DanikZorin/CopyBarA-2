@@ -18,7 +18,7 @@ class Authenticator{
 public:
 	Authenticator(Server* server);
 
-	void startProcess();
+	int startProcess();
 };
 
 #endif
