@@ -11,14 +11,12 @@ class Authenticator{
 
 	int failCount;
 
-	void identification(std::string* corPassword);
-	void authentication(std::string& corPassword, bool* success);
-	void authorization();
-
+	int identification(std::string* corPassword);
+	int authentication(const std::string& corPassword);
+	int authorization();
 
 public:
 	Authenticator(Server* server);
-
 
 	void startProcess();
 };

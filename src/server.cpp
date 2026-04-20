@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "server.h"
 void stringToWords(const std::string& string, std::vector<std::string>& words) {
 	int pos1 = 0;
@@ -79,6 +79,7 @@ void Server::showHelp() {
 	toUser <<
 		"Available commands:\n"
 		"\t-help or -?\t - list commands\n"
+		"\t-quit \t - quit the system\n"
 		"\t-sql [request]\t - custom SQL requst\n"
 		"\t-show [table]\t - show table from database\n"
 		"\t-tables	\t - list all tables from db\n"
@@ -91,7 +92,7 @@ void Server::showHelp() {
 		"\t-problem6 or -p6\t - perform problem6\n"
 		;
 }
-void Server::startProcess(){
+int Server::startProcess(){
 	
 	while (true) {
 		toUser << "Waiting for request...\n";
@@ -145,10 +146,14 @@ void Server::startProcess(){
 		else if (command == "-problem6" || command == "-p6") {
 			problem6();
 		}
+		else if (command == "-quit") {
+			break;
+		}
 		else {
 			unknownCommand();
 		}
 	}
+	return 0;
 }
 void Server::listTables() {
 	const char *sql =	"SELECT name FROM sqlite_master "

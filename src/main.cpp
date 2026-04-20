@@ -1,26 +1,17 @@
-#include <iostream>
+﻿#include <iostream>
+#include <conio>
 #include "authenticator.h"
 using namespace std;
 
-int callback(void* smth, int argc, char** val, char** header) {
-	for (int i = 0;i < argc;i++) {
-		printf("%s - %s\n", header[i], val[i]);
-	}
-	printf("\n");
-	return 0;
-}
-/// TODO: remove windows and test on macOS
-//#include <windows.h>
 int main(int argc, char** args){
 	
-//	SetConsoleOutputCP(65001);
-//	SetConsoleCP(65001);
+	Server server;
+	Authenticator auth(&server);
 
-	Server* server = new Server();
-	Authenticator* auth = new Authenticator(server);
+	if (auth.startProcess()) {
+		std::cout << "Не удалось войти в систему.\n";
+	}
+	std::cout << "Завершение работы...\nНажмите клавишу, чтобы продолжить.\n";
+	_getch();
 
-	auth->startProcess();
-	
-	delete auth;
-	delete server;
 }

@@ -51,7 +51,7 @@ public:
 	std::ostream& getToUser() const;
 	std::istream& getFromUser() const;
 
-	void startProcess();
+	int startProcess();
 };
 
 #endif
