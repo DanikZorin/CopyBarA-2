@@ -37,8 +37,11 @@ target_link_libraries(src PRIVATE SQLite3::SQLite3)
 add_executable(lab4 src/main.cpp)
 target_link_libraries(lab4 PRIVATE src)
 
-add_custom_command(TARGET lab4 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/workshops_system.db" "$<TARGET_FILE_DIR:lab4>/workshops_system.db" )
-
+add_custom_command(TARGET lab4 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    "${CMAKE_CURRENT_SOURCE_DIR}/workshops_system.db"
+    "$<TARGET_FILE_DIR:lab4>/"
+)
 enable_testing()
 add_executable(lab4test tests/tests.cpp) 
 target_link_libraries(lab4test PRIVATE src GTest::gtest_main)
