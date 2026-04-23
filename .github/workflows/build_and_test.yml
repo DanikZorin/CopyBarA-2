@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-and-test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -19,17 +19,3 @@ jobs:
       - name: Run Tests
         working-directory: build
         run: ctest --output-on-failure
-
-      - name: gcovr installation
-        run: pip3 install "gcovr>=7.0" --break-system-packages
-     
-      - name: Generate Coverage XML
-        run: python3 -m gcovr -r . --gcov-executable "llvm-cov gcov" --xml -o coverage.xml
-
-      - name: Write Summary
-        uses: irongut/CodeCoverageSummary@v1.3.0
-        with:
-          filename: coverage.xml
-          badge: true
-          format: markdown
-          output: github-summary
