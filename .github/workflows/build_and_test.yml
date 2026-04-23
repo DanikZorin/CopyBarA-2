@@ -21,7 +21,7 @@ jobs:
         run: ctest --output-on-failure
 
       - name: gcovr installation
-        run: brew install gcovr
+        run: pip3 install "gcovr>=5.1" --break-system-packages
 
       - name: Show Coverage
         run: gcovr -r . --gcov-executable "llvm-cov gcov" --github-summary >> $GITHUB_STEP_SUMMARY
