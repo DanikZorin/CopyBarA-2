@@ -10,6 +10,15 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/workshops_system.db"
 
 find_package(SQLite3 REQUIRED)
 
+if(NOT TARGET SQLite3::SQLite3)
+    add_library(SQLite3::SQLite3 UNKNOWN IMPORTED)
+    set_target_properties(SQLite3::SQLite3 PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${SQLITE3_INCLUDE_DIRS}"
+        IMPORTED_LOCATION "${SQLITE3_LIBRARIES}"
+    )
+endif()
+
+
 include(FetchContent)
 FetchContent_Declare(gtest
     URL https://github.com/google/googletest/archive/refs/heads/main.zip
