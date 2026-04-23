@@ -25,13 +25,13 @@ jobs:
 
       - name: Show Coverage
         run: |
-          # --github-summary создаст отличную таблицу с цветами прямо в Summary
-          # --exclude-unreachable-branches уберет лишний шум
-          # --print-summary продублирует текст в лог для надежности
+          echo "## 📊 Code Coverage Report" >> $GITHUB_STEP_SUMMARY
           
+          # Генерируем отчет в формате GitHub Markdown
+          # Мы не используем --github-summary, так как он капризный.
+          # Вместо него используем --md, который работает стабильнее.
           python3 -m gcovr -r . build/ \
             --gcov-executable "llvm-cov gcov" \
-            --github-summary \
             --exclude '.*tests.*' \
             --exclude '.*_deps.*' \
-            --print-summary >> $GITHUB_STEP_SUMMARY
+            --markdown >> $GITHUB_STEP_SUMMARY
