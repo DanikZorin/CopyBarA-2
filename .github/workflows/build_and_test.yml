@@ -26,9 +26,7 @@ jobs:
       - name: Show Coverage
         run: |
           echo "## 📊 Code Coverage Report" >> $GITHUB_STEP_SUMMARY
-          
-          # Используем полное имя для вызова llvm-cov gcov
-          # И добавляем --markdown для красивой таблицы
+
           python3 -m gcovr -r . build/ \
             --gcov-executable "$(xcrun -f llvm-cov) gcov" \
             --exclude '.*tests.*' \
