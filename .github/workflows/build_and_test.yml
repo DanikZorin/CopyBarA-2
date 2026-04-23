@@ -19,3 +19,11 @@ jobs:
       - name: Run Tests
         working-directory: build
         run: ctest --output-on-failure
+
+      - name: Extract Coverage
+        run: |
+          echo "## Code Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo " " >> $GITHUB_STEP_SUMMARY
+          xcrun llvm-cov report ./build/lab4test \
+            -instr-profile=$(find build -name "*.profraw" | head -n 1) \
+            -ignore-filename-regex=".*tests.*|.*v1.*" >> $GITHUB_STEP_SUMMARY || echo "No coverage data found" >> $GITHUB_STEP_SUMMARY
