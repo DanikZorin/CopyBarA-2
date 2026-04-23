@@ -34,6 +34,9 @@ enable_testing()
 add_executable(lab4test tests/tests.cpp) 
 target_link_libraries(lab4test PRIVATE src GTest::gtest_main)
 
+add_compile_options(--coverage -O0)
+add_link_options(--coverage)
+
 include(GoogleTest)
 gtest_discover_tests(lab4test)
 
