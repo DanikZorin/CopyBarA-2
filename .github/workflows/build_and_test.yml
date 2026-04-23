@@ -19,3 +19,16 @@ jobs:
       - name: Run Tests
         working-directory: build
         run: ctest --output-on-failure
+
+      - name: Install gcovr
+        run: pip3 install gcovr --break-system-packages
+
+      - name: Show Coverage
+        run: |
+          echo "## 📊 Code Coverage Report" >> $GITHUB_STEP_SUMMARY
+
+          python3 -m gcovr -r . build/ \
+            --gcov-executable "$(xcrun -f llvm-cov) gcov" \
+            --exclude '.*tests.*' \
+            --exclude '.*_deps.*' \
+            --markdown >> $GITHUB_STEP_SUMMARY
