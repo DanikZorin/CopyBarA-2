@@ -33,6 +33,8 @@ add_custom_command(TARGET lab4 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy "${CM
 enable_testing()
 add_executable(lab4test tests/tests.cpp) 
 target_link_libraries(lab4test PRIVATE src GTest::gtest_main)
+target_compile_options(lab4test PRIVATE --coverage)
+target_link_options(lab4test PRIVATE --coverage)
 
 include(GoogleTest)
 gtest_discover_tests(lab4test)
