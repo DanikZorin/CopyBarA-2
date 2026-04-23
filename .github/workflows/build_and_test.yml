@@ -20,10 +20,14 @@ jobs:
         working-directory: build
         run: ctest --output-on-failure
 
-      - name: Simple Gcov
+      - name: Show Coverage
         run: |
-          echo "### Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Code Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          # Ищем все файлы объектов и запускаем gcov
-          find build/CMakeFiles/src.dir -name "*.o" -exec gcov {} + >> $GITHUB_STEP_SUMMARY
+          
+          # Находим все файлы .gcno (они создаются при компиляции)
+          # и запускаем gcov. Он сам найдет рядом файлы .gcda (данные тестов).
+          # Флаг -no-output нужен, чтобы не забивать папку .gcov файлами.
+          find build -name "*.gcno" -exec gcov -no-output {} + >> $GITHUB_STEP_SUMMARY
+          
           echo '```' >> $GITHUB_STEP_SUMMARY
