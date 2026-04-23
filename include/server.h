@@ -19,7 +19,7 @@ int callbackPrintout(void* smth, int argc, char** val, char** header);
 int callbackList(void* smth, int argc, char** val, char** header);
 
 class Server{
-	const char* dbPath = "Workshops_system.db";
+	const char* dbPath = "workshops_system.db";
 	const char* sep = " | ";
 	sqlite3* db;
 
