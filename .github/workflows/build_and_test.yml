@@ -27,11 +27,10 @@ jobs:
         run: |
           echo "## 📊 Code Coverage Report" >> $GITHUB_STEP_SUMMARY
           
-          # Генерируем отчет в формате GitHub Markdown
-          # Мы не используем --github-summary, так как он капризный.
-          # Вместо него используем --md, который работает стабильнее.
+          # Используем полное имя для вызова llvm-cov gcov
+          # И добавляем --markdown для красивой таблицы
           python3 -m gcovr -r . build/ \
-            --gcov-executable "llvm-cov gcov" \
+            --gcov-executable "$(xcrun -f llvm-cov) gcov" \
             --exclude '.*tests.*' \
             --exclude '.*_deps.*' \
             --markdown >> $GITHUB_STEP_SUMMARY
