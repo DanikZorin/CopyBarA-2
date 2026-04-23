@@ -20,14 +20,18 @@ jobs:
         working-directory: build
         run: ctest --output-on-failure
 
+      - name: Install gcovr
+        run: pip3 install gcovr --break-system-packages
+
       - name: Show Coverage
         run: |
-          echo "## Code Coverage Report" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          # --github-summary создаст отличную таблицу с цветами прямо в Summary
+          # --exclude-unreachable-branches уберет лишний шум
+          # --print-summary продублирует текст в лог для надежности
           
-          # Находим все файлы .gcno (они создаются при компиляции)
-          # и запускаем gcov. Он сам найдет рядом файлы .gcda (данные тестов).
-          # Флаг -no-output нужен, чтобы не забивать папку .gcov файлами.
-          find build -name "*.gcno" -exec gcov -no-output {} + >> $GITHUB_STEP_SUMMARY
-          
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          python3 -m gcovr -r . build/ \
+            --gcov-executable "llvm-cov gcov" \
+            --github-summary \
+            --exclude '.*tests.*' \
+            --exclude '.*_deps.*' \
+            --print-summary >> $GITHUB_STEP_SUMMARY
